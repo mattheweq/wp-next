@@ -45,7 +45,7 @@ export default function Home() {
   };
 
   // console.log(data[0]);
-  const postHTML = data.map((post) => {
+  const postHTML = data?.map((post) => {
   let content = [post.content.rendered]
 
   // Function to extract src attributes of <img> nodes using regular expressions
@@ -120,7 +120,8 @@ export default function Home() {
 
       <div className={home.container}>
         
-      <p className={home.code}>JZA - Artist \\ <a href="https://jza.olk1.com/contact/">Contact</a></p>
+      <p className={home.code}>JZA - Artist</p>
+      {/* \\ <a href="https://jza.olk1.com/contact/">Contact</a> */}
     
       <div>{postHTML}</div>
       

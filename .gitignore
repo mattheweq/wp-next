@@ -4,3 +4,5 @@ DEVREADME.md
 notes.js
 node_modules
 .next/
+.env.local
+out/*
