@@ -1,0 +1,40 @@
+.container {
+  max-width: 2000px;
+  margin: 0 auto;
+}
+.code {
+  border-radius: 5px;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+@media (max-width: 2100px) {
+  .container {
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+}
+
+/* .grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 800px;
+} */
+
+/* @media (max-width: 600px) {
+  .grid {
+    width: 100%;
+    flex-direction: column;
+  }
+} */
+
+/* .bigText {
+  font-size: 42px;
+  text-align: center;
+  line-height: 2;
+  color: lightcoral;
+} */
