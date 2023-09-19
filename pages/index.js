@@ -44,7 +44,6 @@ export default function Home() {
      document.body.style.overflow = 'auto';
   };
 
-  console.log(data[0]);
   const postHTML = data?.map((post) => {
   let content = [post.content.rendered]
 
@@ -63,11 +62,7 @@ export default function Home() {
 
   function extractText(html) {
     const text = [];
-
-    // this regex is for all images and text in one wp post
-    // const textRegex = /\/>([^<]*?)<\/p>/gs;
     
-    // this regex is for one image/text per wp post
     const textRegex = /<p>([^<]*?)<\/p>/g;
     
     let match;
@@ -78,17 +73,12 @@ export default function Home() {
     return text;
   }
 
-  // Search each HTML content in the array for <img> nodes and extract src attributes
   const allImgSrcs = content.map(extractImageSrcs);
   const allText = content.map(extractText);
 
-  // Combine all image/Text srcs into a single array
-  const foundImageSrcs = [].concat(...allImgSrcs);
-  const foundText = [].concat(...allText);
-
-  const imageInfoArray = foundImageSrcs.map((imageUrl, i) => ({
+  const imageInfoArray = allImgSrcs.map((imageUrl, i) => ({
     imageUrl,
-    foundText: foundText[i], // Corresponding foundText for the image
+    foundText: allText[i].join('\n')
   }));
 
   return (
@@ -114,15 +104,17 @@ export default function Home() {
     // You can render a loading indicator here
     return <div className="loading">loading images...</div>;
   }
+  
+  const strapline = "pull data from wordpress backend over json api into nextjs frontend";
 
   return (
      <>
-     <title>images from the backend</title>
+     <title>{strapline}</title>
       <link rel='shortcut icon' href='https://easycss.github.io/favicon/favicon.png' type='image/x-icon' />
 
       <div className={home.container}>
         
-      <p className={home.code}>images from the backend</p>
+      <p className={home.code}>{strapline}</p>
     
       {/* home.wrapper class added for one image/text per wp post */}
       <div className={home.wrapper}>
