@@ -11,7 +11,7 @@ export default function Home() {
 
   async function fetchData() {
       try {
-        const res = await fetch(process.env.NEXT_PUBLIC_WP_API_JZA_POSTS);
+        const res = await fetch(process.env.NEXT_PUBLIC_WP_API_POSTS);
         const responseData = await res.json();
         
         if (!responseData) {
@@ -92,13 +92,14 @@ export default function Home() {
       {imageInfoArray.map((imageInfo, i) => (
         <img
           key={i}
+          className={home.imageItem}
           src={imageInfo.imageUrl}
           onClick={() => openModal(imageInfo)}
           alt={`Image ${i}`}
         />
       ))}
-      <Modal modalIsOpen={modalIsOpen} selectedImage={selectedImage} closeModal={closeModal} />
       
+      <Modal modalIsOpen={modalIsOpen} selectedImage={selectedImage} closeModal={closeModal} />
     </div>
   )
 })
@@ -111,17 +112,12 @@ export default function Home() {
 
   return (
      <>
-     <title>JZA - Artist</title>
-      <link
-        rel="shortcut icon"
-        href="https://jza.olk1.com/wp-content/uploads/2021/01/JZABLK.png"
-        type="image/x-icon"
-      />
+     <title>images from the backend</title>
+      <link rel='shortcut icon' href='https://easycss.github.io/favicon/favicon.png' type='image/x-icon' />
 
       <div className={home.container}>
         
-      <p className={home.code}>JZA - Artist</p>
-      {/* \\ <a href="https://jza.olk1.com/contact/">Contact</a> */}
+      <p className={home.code}>images from the backend</p>
     
       <div>{postHTML}</div>
       

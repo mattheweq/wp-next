@@ -11,6 +11,7 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
         
+      <link rel='shortcut icon' href='https://easycss.github.io/favicon/favicon.png' type='image/x-icon' />
       </Head>
         <body>
           <Main />
