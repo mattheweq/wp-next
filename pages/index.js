@@ -44,7 +44,7 @@ export default function Home() {
      document.body.style.overflow = 'auto';
   };
 
-  // console.log(data[0]);
+  console.log(data[0]);
   const postHTML = data?.map((post) => {
   let content = [post.content.rendered]
 
@@ -63,7 +63,12 @@ export default function Home() {
 
   function extractText(html) {
     const text = [];
-    const textRegex = /\/>([^<]*?)<\/p>/gs;
+
+    // this regex is for all images and text in one wp post
+    // const textRegex = /\/>([^<]*?)<\/p>/gs;
+    
+    // this regex is for one image/text per wp post
+    const textRegex = /<p>([^<]*?)<\/p>/g;
     
     let match;
     while ((match = textRegex.exec(html)) !== null) {
@@ -119,7 +124,10 @@ export default function Home() {
         
       <p className={home.code}>images from the backend</p>
     
-      <div>{postHTML}</div>
+      {/* home.wrapper class added for one image/text per wp post */}
+      <div className={home.wrapper}>
+        {postHTML}
+      </div>
       
       </div>
     </>

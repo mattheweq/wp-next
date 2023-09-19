@@ -11,6 +11,12 @@
     Bitstream Vera Sans Mono, Courier New, monospace;
 }
 
+/* this class is added for one image/text per wp post */
+.wrapper{
+  display: flex;
+}
+
+/* this class aligns images top */
 .imageItem{
   max-width: 400px;
   width: 100%;
