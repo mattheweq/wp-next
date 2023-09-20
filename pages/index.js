@@ -122,6 +122,10 @@ export default function Home() {
       </div>
       
       </div>
+
+      <div id="admin">
+        <a href="https://wp.olk1.com/wp-admin/" target="_blank">π</a>
+      </div>
     </>
   )
 }
