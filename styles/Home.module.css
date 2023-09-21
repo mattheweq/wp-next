@@ -23,6 +23,11 @@
 .imageItem {
   max-width: 400px;
   width: 100%; /* Ensure images don't exceed 400px */
+  animation: fade .1s linear;
+}
+
+.loadAni{
+  animation: loading .2s linear;
 }
 
 @media (min-width: 640px) {
@@ -41,9 +46,30 @@
     vertical-align: top;
   }
 }
-@media (max-width: 2100px) {
-  .container {
-    margin-left: 15%;
-    margin-right: 15%;
+
+
+@keyframes loading {
+  0% {
+    opacity: 0.1;
+    scale: 0;
+  }
+  50% {
+    opacity: 0.5;
+    scale: .5;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes fade {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
   }
 }

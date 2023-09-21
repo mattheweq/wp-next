@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
-import Modal from '../components/modal'
+import Modal from '../components/Modal'
+import SkeletonImage from '../components/SkeletonImage'
 import home from "../styles/Home.module.css"
 
 export default function Home() {
@@ -19,11 +20,10 @@ export default function Home() {
           return;
         }
 
-        // Set the data and update the loading state
         setData(responseData);
         setLoading(false);
+
       } catch (error) {
-        // Handle any fetch or JSON parsing errors
         console.error('Error fetching data:', error);
       }
     }
@@ -44,10 +44,6 @@ export default function Home() {
      document.body.style.overflow = 'auto';
   };
 
-  const postHTML = data?.map((post) => {
-  let content = [post.content.rendered]
-
-  // Function to extract src attributes of <img> nodes using regular expressions
   function extractImageSrcs(html) {
     const imgSrcs = [];
     const imgRegex = /<img[^>]+src=["']([^"']+)["']/g;
@@ -73,6 +69,11 @@ export default function Home() {
     return text;
   }
 
+
+// RENDER CONTENT
+  const postHTML = data?.map((post) => {
+  let content = [post.content.rendered]
+
   const allImgSrcs = content.map(extractImageSrcs);
   const allText = content.map(extractText);
 
@@ -83,45 +84,51 @@ export default function Home() {
 
   return (
     <div key={Math.random()}>
-      
-      {imageInfoArray.map((imageInfo, i) => (
-        <img
-          key={i}
-          className={home.imageItem}
-          src={imageInfo.imageUrl}
-          onClick={() => openModal(imageInfo)}
-          alt={`Image ${i}`}
-        />
-      ))}
-      
+      {
+        imageInfoArray.map((imageInfo, i) => (
+          <div key={i} className={home.imageItem}>
+            <img
+              src={imageInfo.imageUrl}
+              onLoad={() => setLoading(false)}
+              onClick={() => openModal(imageInfo)}
+              alt={`Image ${i}`}
+            />
+          </div>
+        ))
+      }
+
       <Modal modalIsOpen={modalIsOpen} selectedImage={selectedImage} closeModal={closeModal} />
     </div>
   )
 })
 
-
-  if (loading) {
-    // You can render a loading indicator here
-    return <div className="loading">loading images...</div>;
-  }
+  // if (loading) {
+  //   return <div className="loading">loading images...</div>;
+  // }
   
   const strapline = "pull data from wordpress backend over json api into nextjs frontend";
 
   return (
      <>
      <title>{strapline}</title>
+
       <link rel='shortcut icon' href='https://easycss.github.io/favicon/favicon.png' type='image/x-icon' />
 
-      <div className={home.container}>
+    <div className={home.container}>
         
       <p className={home.code}>{strapline}</p>
     
-      {/* home.wrapper class added for one image/text per wp post */}
       <div className={home.wrapper}>
-        {postHTML}
+        { loading ? 
+          <>
+            <div className="loading"></div>
+            <SkeletonImage /> 
+          </>
+          : postHTML
+        }
       </div>
       
-      </div>
+    </div>
 
       <div id="admin">
         <a href="https://wp.olk1.com/wp-admin/edit.php" target="_blank">π</a>
