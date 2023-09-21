@@ -23,7 +23,7 @@
 .imageItem {
   max-width: 400px;
   width: 100%; /* Ensure images don't exceed 400px */
-  animation: fade .1s linear;
+  /* animation: fade .1s linear; */
 }
 
 .loadAni{
