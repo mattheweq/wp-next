@@ -7,7 +7,7 @@ module.exports = {
   //   loader: 'custom',
   //   path: '/ '
   // },
-  basePath: '/wp-next', 
+  basePath: '', 
   assetPrefix: '/wp-next/',
 
 };
