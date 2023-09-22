@@ -28,9 +28,40 @@ export default function Home() {
       }
     }
 
-  useEffect(() => {
+// Force data re-fetch cause WP backend is janky
+useEffect(() => {
+  let fetchDataInterval;
+  let timeoutId;
+
+  const fetchDataAndStop = () => {
+
     fetchData();
-  }, []);
+
+    // Check if 2 seconds have passed; if yes, stop the interval
+    if (Date.now() - startTime >= 2000) {
+      clearInterval(fetchDataInterval);
+      clearTimeout(timeoutId);
+
+    }
+  };
+
+  // Start the interval
+  const startTime = Date.now();
+  fetchDataInterval = setInterval(fetchDataAndStop, 1000);
+
+  // Stop the interval after 2 seconds
+  timeoutId = setTimeout(() => {
+    clearInterval(fetchDataInterval);
+
+  }, 2000);
+
+  // Cleanup the interval on component unmount
+  return () => {
+    clearInterval(fetchDataInterval);
+    clearTimeout(timeoutId);
+  };
+}, []);
+
 
   const openModal = (imageUrl) => {
     setSelectedImage(imageUrl);
@@ -88,7 +119,7 @@ export default function Home() {
         imageInfoArray.map((imageInfo, i) => (
           <div key={i} className={home.imageItem}>
             <img
-              src={imageInfo.imageUrl}
+              src={imageInfo?.imageUrl}
               onLoad={() => setLoading(false)}
               onClick={() => openModal(imageInfo)}
               alt={`Image ${i}`}
