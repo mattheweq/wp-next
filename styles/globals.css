@@ -62,22 +62,15 @@ img{
   left: 0;
   bottom: 0;
   right: 0;
+  height: 500px;
   text-align: center;
   display: flex;
-  height: calc(100vh - 15vh);
   align-items: center;
   justify-content: center;
   font-size: 24px;
   line-height: 8vh;
   color: #111;
 }
-/* .loading::after{
-  content: "Images are being selected and loaded...";
-  background: var(--loading-bg);
-  padding-bottom: 0px;
-  width: 100%;
-} */
-
 
 
 /* MODAL */
