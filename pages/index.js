@@ -28,39 +28,10 @@ export default function Home() {
       }
     }
 
-// Force data re-fetch cause WP backend is janky
-useEffect(() => {
-  let fetchDataInterval;
-  let timeoutId;
 
-  const fetchDataAndStop = () => {
-
+  useEffect(() => {
     fetchData();
-
-    // Check if 2 seconds have passed; if yes, stop the interval
-    if (Date.now() - startTime >= 2000) {
-      clearInterval(fetchDataInterval);
-      clearTimeout(timeoutId);
-
-    }
-  };
-
-  // Start the interval
-  const startTime = Date.now();
-  fetchDataInterval = setInterval(fetchDataAndStop, 1000);
-
-  // Stop the interval after 2 seconds
-  timeoutId = setTimeout(() => {
-    clearInterval(fetchDataInterval);
-
-  }, 2000);
-
-  // Cleanup the interval on component unmount
-  return () => {
-    clearInterval(fetchDataInterval);
-    clearTimeout(timeoutId);
-  };
-}, []);
+  }, [data]);
 
 
   const openModal = (imageUrl) => {
@@ -152,7 +123,7 @@ useEffect(() => {
       <div className={home.wrapper}>
         { loading ? 
           <>
-            <div className="loading"></div>
+            <div className="loading">loading images...</div>
             <SkeletonImage /> 
           </>
           : postHTML

@@ -54,7 +54,6 @@ img{
 }
 
 
-
 /* LOADING */
 .loading{
   position: absolute;
@@ -65,19 +64,22 @@ img{
   right: 0;
   text-align: center;
   display: flex;
-  height: calc(100vh);
+  height: calc(100vh - 15vh);
   align-items: center;
   justify-content: center;
-  color: silver;
-  font-size: 2vw;
+  font-size: 24px;
   line-height: 8vh;
+  color: #111;
 }
-.loading::after{
+/* .loading::after{
   content: "Images are being selected and loaded...";
   background: var(--loading-bg);
   padding-bottom: 0px;
   width: 100%;
-}
+} */
+
+
+
 /* MODAL */
 /* Styles for the modal container */
 .modal {

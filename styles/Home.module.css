@@ -27,6 +27,8 @@
 }
 
 .loadAni{
+  position: relative;
+  z-index: 1;
   animation: loading .2s linear;
 }
 
