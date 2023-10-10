@@ -86,20 +86,22 @@ export default function Home() {
     
     return imgSrcs;
   }
-console.clear()
-  console.log(data[4]);
+
+// console.clear()
+// console.log(data[4]);
 
   function extractText(html) {
     const text = [];
-    const textRegex = /\/>([^<]*?)<\/p>/gs;
+    const textRegex = /\/>([^]*)/g;
 
-    
     let match;
     while ((match = textRegex.exec(html)) !== null) {
       text.push(match[1]);
     }
-    
-    return text;
+    const temporaryElement = document.createElement('div');
+    temporaryElement.innerHTML = text;
+    const textWithoutTags = temporaryElement.textContent;
+    return textWithoutTags;
   }
 
   // Search each HTML content in the array for <img> nodes and extract src attributes
