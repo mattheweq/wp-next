@@ -86,9 +86,8 @@ export default function Home() {
     
     return imgSrcs;
   }
-
 // console.clear()
-// console.log(data[4]);
+  // console.log(data[4]);
 
   function extractText(html) {
     const text = [];
