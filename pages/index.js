@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import Modal from '../components/modal'
 import home from "../styles/Home.module.css"
+import SkeletonImage from '../components/SkeletonImage';
 
 export default function Home() {
   const loadingMessages = [
@@ -119,14 +120,17 @@ export default function Home() {
   return (
     <div key={Math.random()}>
       
-      {imageInfoArray.map((imageInfo, i) => (
+      {imageInfoArray.map((imageInfo, i) => {
+      // console.log(imageInfo.foundText);
+      return (
         <img
           key={i}
           src={imageInfo.imageUrl}
           onClick={() => openModal(imageInfo)}
-          alt={`Image ${i}`}
+          alt={`Image load failed: ${imageInfo.foundText.slice(0, 7)}`}
         />
-      ))}
+      )
+  })}
       <Modal modalIsOpen={modalIsOpen} selectedImage={selectedImage} closeModal={closeModal} />
       
     </div>
@@ -134,14 +138,10 @@ export default function Home() {
 })
 
   // if (loading) {
-  //   return <div className="loading">loading images...</div>;
+  //   return <div className="loading">
+  //     {loadingMessages[currentMessageIndex]}
+  //   </div>
   // }
-  //
-  if (loading) {
-    return <div className="loading">
-      {loadingMessages[currentMessageIndex]}
-    </div>
-  }
 
 
   const strapline = "pull data from wordpress backend over json api into nextjs frontend";
@@ -159,15 +159,17 @@ export default function Home() {
     
     <div className={home.wrapper}>
       
-      {/* { loading ? 
+      { loading ? 
         <>
-          <div className="loading">loading images...</div>
+          <div className="loading">
+            {loadingMessages[currentMessageIndex]}
+          </div>
           <SkeletonImage /> 
         </>
         : postHTML
-      } */}
+      }
 
-      {postHTML}
+      {/* {postHTML} */}
 
      </div>
       

@@ -1,7 +1,7 @@
 import home from "../styles/Home.module.css";
 
 const SkeletonImage = () => {
-  const numberOfImages = 6;
+  const numberOfImages = 9;
 
   return (
     <>
