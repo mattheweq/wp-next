@@ -3,11 +3,21 @@ import Modal from '../components/modal'
 import home from "../styles/Home.module.css"
 
 export default function Home() {
+  const loadingMessages = [
+    "Knock knock...",
+    "Who's there?...",
+    "Data...",
+    "Data who?...",
+    "Data is taking a long time to load...",
+  ];
+
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
+
 
   async function fetchData() {
       try {
@@ -32,6 +42,23 @@ export default function Home() {
     fetchData();
   }, []);
 
+
+
+  /* loading messages */
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentMessageIndex((prevIndex) => (prevIndex + 1) % loadingMessages.length);
+    }, 1500);
+
+    if(!loading){
+      clearInterval(timer);
+    }
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [loading]);
+
   const openModal = (imageUrl) => {
     setSelectedImage(imageUrl);
     setModalIsOpen(true);
@@ -44,7 +71,6 @@ export default function Home() {
      document.body.style.overflow = 'auto';
   };
 
-  // console.log(data[0]);
   const postHTML = data?.map((post) => {
   let content = [post.content.rendered]
 
@@ -60,10 +86,13 @@ export default function Home() {
     
     return imgSrcs;
   }
+console.clear()
+  console.log(data[4]);
 
   function extractText(html) {
     const text = [];
     const textRegex = /\/>([^<]*?)<\/p>/gs;
+
     
     let match;
     while ((match = textRegex.exec(html)) !== null) {
@@ -103,44 +132,50 @@ export default function Home() {
   )
 })
 
-
+  // if (loading) {
+  //   return <div className="loading">loading images...</div>;
+  // }
+  //
   if (loading) {
-    // You can render a loading indicator here
-    return <div className="loading">loading images...</div>;
+    return <div className="loading">
+      {loadingMessages[currentMessageIndex]}
+    </div>
   }
- 
+
+
   const strapline = "pull data from wordpress backend over json api into nextjs frontend";
 
   return (
-     <>
+    <>
+    
      <title>{strapline}</title>
 
       <link rel='shortcut icon' href='https://easycss.github.io/favicon/favicon.png' type='image/x-icon' />
 
     <div className={home.container}>
         
-      <p className={home.code}>{strapline}</p>
+    <p className={home.code}>{strapline}</p>
     
-      <div className={home.wrapper}>
+    <div className={home.wrapper}>
       
-        {/* { loading ? 
-          <>
-            <div className="loading">loading images...</div>
-            <SkeletonImage /> 
-          </>
-          : postHTML
-        } */}
+      {/* { loading ? 
+        <>
+          <div className="loading">loading images...</div>
+          <SkeletonImage /> 
+        </>
+        : postHTML
+      } */}
 
+      {postHTML}
 
-        {postHTML}
-
-      </div>
+     </div>
       
     </div>
 
       <div id="admin">
         <a href="https://wp.olk1.com/wp-admin/edit.php" target="_blank">π</a>
       </div>
+    
     </>
   )
 }
