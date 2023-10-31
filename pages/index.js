@@ -175,10 +175,7 @@ export default function Home() {
       
     </div>
 
-      <div id="admin">
-        <a href="https://wp.olk1.com/wp-admin/edit.php" target="_blank">π</a>
-      </div>
-    
+      
     </>
   )
 }
